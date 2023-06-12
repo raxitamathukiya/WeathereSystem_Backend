@@ -11,7 +11,7 @@ const limiter = rateLimit({
     windowMs: 3 * 60 * 1000,
     max: 1,
   });
-app.use(limiter);
+
 app.get("/",async(req,res)=>{
     try {
         res.status(200).send('welcome to Weather Application')
@@ -21,7 +21,7 @@ app.get("/",async(req,res)=>{
 })
 app.use(errorLogger)
 app.get("/:city",validateCity,getCurrentWeather)
-
+app.use(limiter)
 app.listen(8080,async()=>{
     try {
         await connection
